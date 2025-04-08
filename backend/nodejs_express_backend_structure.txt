@@ -1,0 +1,19 @@
+project/
+├── controllers/
+│   └── exampleController.js
+├── models/
+│   └── exampleModel.js
+├── routes/
+│   └── exampleRoutes.js
+├── middlewares/
+│   └── exampleMiddleware.js
+├── config/
+│   └── dbConfig.js
+├── utils/
+│   └── exampleUtil.js
+├── public/
+│   └── index.html
+├── .env
+├── .gitignore
+├── package.json
+├── server.js
