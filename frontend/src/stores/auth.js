@@ -12,6 +12,7 @@ export const useAuthStore = defineStore('auth', () => {
   const setToken = (newToken) => {
     token.value = newToken
     localStorage.setItem('token', newToken)
+    console.log('Token set:', newToken)
     axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`
   }
 
@@ -25,6 +26,7 @@ export const useAuthStore = defineStore('auth', () => {
   // Login user
   const login = async (credentials) => {
     try {
+      console.log('Logging in with credentials:', credentials)
       const response = await axios.post('/api/auth/login', credentials)
       setToken(response.data.token)
       await fetchUser()

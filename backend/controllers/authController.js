@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 const { validationResult } = require('express-validator');
@@ -101,6 +101,7 @@ exports.login = async (req, res, next) => {
 
 // Get current user
 exports.getMe = async (req, res, next) => {
+  // console.log(req.headers);
   try {
     const user = await User.findById(req.user.id).select('-password');
     res.json(user);

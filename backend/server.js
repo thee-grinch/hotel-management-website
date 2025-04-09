@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const config = require('./config/config');
 
 // Connect to MongoDB
-mongoose.connect(config.mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+// Use the connection string from your config file
+console.log('Connecting to MongoDB...');
+console.log('MongoDB URI:', config.mongoURI);
+mongoose.connect(config.mongoURI)
 .then(() => {
   console.log('Connected to MongoDB');
   // Start the server

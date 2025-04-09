@@ -59,11 +59,11 @@ const routes = [
         name: 'admin-orders',
         component: () => import('@/views/admin/OrderManagement.vue')
       },
-      {
-        path: 'tables',
-        name: 'admin-tables',
-        component: () => import('@/views/admin/TableManagement.vue')
-      },
+      // {
+      //   path: 'tables',
+      //   name: 'admin-tables',
+      //   component: () => import('@/views/admin/TableManagement.vue')
+      // },
       {
         path: 'users',
         name: 'admin-users',
