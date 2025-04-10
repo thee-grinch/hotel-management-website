@@ -6,7 +6,20 @@ const { validationResult } = require('express-validator');
 exports.getMenuItems = async (req, res, next) => {
   try {
     const menuItems = await MenuItem.find().populate('category');
-    res.json(menuItems);
+
+    // Use environment variable for the base URL or fallback to request host
+    const baseUrl = process.env.BACKEND_URL || `${req.protocol}://${req.get('host')}`;
+    // Check if the base URL is defined
+    console.log(baseUrl, 'Base URL');
+ 
+    // Add full image URL to each menu item
+    const menuItemsWithFullImageUrl = menuItems.map(item => ({
+      ...item.toObject(),
+      image: item.image ? `${baseUrl}${item.image}` : null
+      
+    }));
+
+    res.json(menuItemsWithFullImageUrl);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -50,7 +63,7 @@ exports.createMenuItem = async (req, res, next) => {
       category,
       image: req.file ? `/uploads/${req.file.filename}` : null
     });
-
+    console.log(menuItem, 'Menu Item');
     await menuItem.save();
     res.json(menuItem);
   } catch (err) {

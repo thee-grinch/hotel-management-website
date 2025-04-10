@@ -18,4 +18,8 @@ router.put('/:id/role', auth, usersController.updateUserRole);
 // @access  Private/Admin
 router.delete('/:id', auth, usersController.deleteUser);
 
+// @route   PUT api/users/profile
+// @desc    Update user profile
+// @access  Private
+router.put('/profile', auth, usersController.updateProfile);
 module.exports = router;

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import axios from '@/axios'
-import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/vue/20/solid'
+import { PlusIcon, PencilIcon, TrashIcon, XCircleIcon } from '@heroicons/vue/20/solid'
 import AddEditTableDialog from '@/components/admin/AddEditTableDialog.vue'
 
 const tables = ref([])
@@ -22,14 +22,19 @@ const fetchTables = async () => {
   }
 }
 
+const handleAdd = () => {
+  currentTable.value = null // Reset the current table
+  showDialog.value = true // Show the dialog
+}
+
 const handleEdit = (table) => {
-  currentTable.value = table
-  showDialog.value = true
+  currentTable.value = table // Set the current table for editing
+  showDialog.value = true // Show the dialog
 }
 
 const handleDelete = async (id) => {
   if (!confirm('Are you sure you want to delete this table?')) return
-  
+
   try {
     await axios.delete(`/api/tables/${id}`)
     await fetchTables()
@@ -54,14 +59,14 @@ onMounted(() => {
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold text-gray-900">Table Management</h1>
       <button
-        @click="showDialog = true"
+        @click="handleAdd"
         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
         <PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
         Add Table
       </button>
     </div>
-    
+
     <div v-if="error" class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
       <div class="flex">
         <div class="flex-shrink-0">
@@ -72,11 +77,11 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    
+
     <div v-if="loading" class="space-y-4">
       <div v-for="i in 5" :key="i" class="bg-gray-100 rounded-lg h-20 animate-pulse"></div>
     </div>
-    
+
     <div v-else class="bg-white shadow overflow-hidden sm:rounded-md">
       <ul class="divide-y divide-gray-200">
         <li v-for="table in tables" :key="table._id">
@@ -115,7 +120,7 @@ onMounted(() => {
         </li>
       </ul>
     </div>
-    
+
     <AddEditTableDialog
       :show="showDialog"
       :table="currentTable"

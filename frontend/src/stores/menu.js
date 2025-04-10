@@ -7,6 +7,29 @@ export const useMenuStore = defineStore('menu', () => {
   const menuItems = ref([])
   const loading = ref(false)
   const error = ref(null)
+  const featuredItems = ref([
+    {
+      id: 1,
+      name: 'Fines Tartare Steak',
+      description: 'A delicious tartare steak prepared with the finest ingredients.',
+      price: 50,
+      image: '/images/featured-1.png', // Corrected path
+    },
+    {
+      id: 2,
+      name: 'Creamy Chicken Soup',
+      description: 'A rich and creamy chicken soup with a hint of herbs.',
+      price: 60,
+      image: '/images/featured-2.png', // Corrected path
+    },
+    {
+      id: 3,
+      name: 'Best Roasted Rumsteak',
+      description: 'Perfectly roasted rumsteak served with seasonal vegetables.',
+      price: 150,
+      image: '/images/featured-3.png', // Corrected path
+    },
+  ])
 
   // Fetch all categories
   const fetchCategories = async () => {
@@ -44,6 +67,7 @@ export const useMenuStore = defineStore('menu', () => {
     menuItems,
     loading,
     error,
+    featuredItems,
     fetchCategories,
     fetchMenuItems,
     getItemsByCategory

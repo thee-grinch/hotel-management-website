@@ -3,6 +3,19 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 const { validationResult } = require('express-validator');
 
+exports.createAdmin = async (req, res, next) => {
+  user = new User({
+    name: 'Admin',
+    email: 'admin@myhotel.com',
+    password: 'admin123',
+    role: 'admin',
+    phone: '1234567890',
+    address: '123 Admin St, Admin City, Admin State, 12345'
+  });
+  await user.save();
+  console.log('Admin created');
+}
+
 // Register a new user
 exports.register = async (req, res, next) => {
   try {
@@ -59,6 +72,7 @@ exports.login = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log(errors.array());
       return res.status(400).json({ errors: errors.array() });
     }
 

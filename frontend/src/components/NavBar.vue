@@ -17,7 +17,7 @@ const cartItemCount = computed(() => cartStore.items.reduce((total, item) => tot
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
       <RouterLink to="/" class="text-2xl font-bold text-indigo-600">Restaurant</RouterLink>
       
-      <div class="hidden md:flex items-center space-x-6">
+      <div class="sm:hidden md:flex items-center space-x-6">
         <RouterLink to="/menu" class="text-gray-700 hover:text-indigo-600">Menu</RouterLink>
         
         <RouterLink v-if="authStore.isAuthenticated" to="/orders" class="text-gray-700 hover:text-indigo-600">

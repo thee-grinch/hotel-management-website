@@ -7,13 +7,20 @@ const errorHandler = require('./middleware/errorHandler');
 const auth = require('./middleware/auth');
 
 const app = express();
-// app.options('*', cors()); // Enable CORS for preflight requests
+
+// CORS configuration
 const corsOptions = {
-    origin: 'https://silver-halibut-wjjgg97jrwjc9pj7-5173.app.github.dev', // Replace with your frontend's URL
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
-    credentials: true, // Allow cookies if needed
+  origin: 'https://silver-halibut-wjjgg97jrwjc9pj7-5173.app.github.dev',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Disposition'],
+  credentials: true,
+  optionsSuccessStatus: 200
 };
+// Apply CORS middleware globally
+app.use(helmet({
+  crossOriginResourcePolicy: false // Disable Helmet's CORP policy
+}));
 
 app.use(cors(corsOptions));
 
@@ -23,20 +30,18 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-// Static files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Serve static files with CORS enabled
+app.use('/uploads', cors(corsOptions), express.static(path.join(__dirname, 'uploads')));
 
 // Routes
-// Add these after your existing route imports
-app.use('/api/auth', require('./routes/auth'));
 app.use(auth); // Use the auth middleware for all routes
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/user'));
+app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/menu', require('./routes/menu'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/tables', require('./routes/tables'));

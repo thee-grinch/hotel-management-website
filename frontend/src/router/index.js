@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth' 
+import AdminDashboard from '@/views/admin/AdminDashboard.vue'
+import MenuManagement from '@/views/admin/MenuManagement.vue'
+import OrderManagement from '@/views/admin/OrderManagement.vue'
+import TableManagement from '@/views/admin/TableManagement.vue'
+import UserManagement from '@/views/admin/UserManagement.vue'
 
 const routes = [
   {
@@ -45,31 +50,29 @@ const routes = [
   // Admin routes
   {
     path: '/admin',
-    name: 'admin',
-    component: () => import('@/views/admin/AdminDashboard.vue'),
-    meta: { requiresAuth: true, requiresAdmin: true },
+    component: AdminDashboard,
     children: [
       {
         path: 'menu',
-        name: 'admin-menu',
-        component: () => import('@/views/admin/MenuManagement.vue')
+        name: 'MenuManagement',
+        component: MenuManagement,
       },
       {
         path: 'orders',
-        name: 'admin-orders',
-        component: () => import('@/views/admin/OrderManagement.vue')
+        name: 'OrderManagement',
+        component: OrderManagement,
       },
-      // {
-      //   path: 'tables',
-      //   name: 'admin-tables',
-      //   component: () => import('@/views/admin/TableManagement.vue')
-      // },
+      {
+        path: 'tables',
+        name: 'TableManagement',
+        component: TableManagement,
+      },
       {
         path: 'users',
-        name: 'admin-users',
-        component: () => import('@/views/admin/UserManagement.vue')
-      }
-    ]
+        name: 'UserManagement',
+        component: UserManagement,
+      },
+    ],
   },
   {
     path: '/:pathMatch(.*)*',

@@ -1,12 +1,11 @@
 const express = require('express');
-const router = express.Router();
 const { check } = require('express-validator');
 const reservationController = require('../controllers/reservationController');
 const auth = require('../middleware/auth');
 
-// @route   POST api/reservations
-// @desc    Create a reservation
-// @access  Private
+const router = express.Router();
+
+// Create a reservation
 router.post(
   '/',
   [
@@ -20,19 +19,13 @@ router.post(
   reservationController.createReservation
 );
 
-// @route   GET api/reservations
-// @desc    Get all reservations
-// @access  Private
+// Get all reservations
 router.get('/', auth, reservationController.getReservations);
 
-// @route   PUT api/reservations/:id/status
-// @desc    Update reservation status
-// @access  Private/Admin
-router.put('/:id/status', auth, reservationController.updateReservationStatus);
+// Update reservation status
+router.put('/:id/status', auth, reservationController.updateReservation);
 
-// @route   DELETE api/reservations/:id
-// @desc    Delete reservation
-// @access  Private
+// Delete a reservation
 router.delete('/:id', auth, reservationController.deleteReservation);
 
 module.exports = router;

@@ -2,7 +2,12 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
 const auth = (req, res, next) => {
-  if (req.path === '/login' || req.path === '/signup') {
+console.log(req.path);
+if (req.path === '/api/auth/login' || req.path === '/api/auth/signup') {
+    return next();
+  }
+  console.log(req.path);
+  if (req.path === '/api/auth/login' || req.path === '/api/auth/signup') {
     return next();
   }
   const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -14,7 +19,6 @@ const auth = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, config.jwtSecret);
     req.user = decoded.user;
-    console.log('User authenticated:', req.user);
     next();
   } catch (err) {
     res.status(401).json({ msg: 'Token is not valid' });
