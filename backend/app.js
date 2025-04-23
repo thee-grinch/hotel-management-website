@@ -12,7 +12,6 @@ const app = express();
 // CORS configuration
 const corsOptions = {
   origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Allow requests from this origin
-  origin: 'https://silver-halibut-wjjgg97jrwjc9pj7-5173.app.github.dev',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   exposedHeaders: ['Content-Disposition'],
