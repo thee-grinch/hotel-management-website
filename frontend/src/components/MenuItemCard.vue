@@ -25,7 +25,7 @@ const emit = defineEmits(['add-to-cart'])
     <div class="p-4">
       <div class="flex justify-between items-start">
         <h3 class="text-lg font-medium text-gray-900">{{ item.name }}</h3>
-        <span class="text-lg font-medium text-indigo-600">${{ item.price.toFixed(2) }}</span>
+        <span class="text-lg font-medium text-indigo-600">Ksh {{ item.price.toFixed(2) }}</span>
       </div>
       <p class="mt-1 text-sm text-gray-500">{{ item.description }}</p>
       <button

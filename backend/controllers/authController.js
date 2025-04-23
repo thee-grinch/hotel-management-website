@@ -32,14 +32,17 @@ exports.register = async (req, res, next) => {
       return res.status(400).json({ msg: 'User already exists' });
     }
 
+    // Check if this is the first user
+    const isFirstUser = (await User.countDocuments()) === 0;
+
     // Create new user
     user = new User({
       name,
       email,
       password,
-      role: role || 'customer',
+      role: isFirstUser ? 'admin' : role || 'customer', // First user is admin
       phone,
-      address
+      address,
     });
 
     await user.save();
@@ -48,8 +51,8 @@ exports.register = async (req, res, next) => {
     const payload = {
       user: {
         id: user.id,
-        role: user.role
-      }
+        role: user.role,
+      },
     };
 
     jwt.sign(
