@@ -7,7 +7,7 @@ if (req.path === '/api/auth/login' || req.path === '/api/auth/signup') {
     return next();
   }
   console.log(req.path);
-  if (req.path === '/api/auth/login' || req.path === '/api/auth/signup') {
+  if (req.path === '/api/auth/login' || req.path === '/api/auth/register') {
     return next();
   }
   const token = req.header('Authorization')?.replace('Bearer ', '');
